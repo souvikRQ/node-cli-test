@@ -1,0 +1,150 @@
+revolte:
+  version: '1.0'
+  project: Revolte Test
+  appName: Node CLI
+  config:
+    codeReview:
+      summarize: true
+      suggestFixes: true
+      commentStyle: Balanced
+    testSuite:
+      command: npm run test
+  workflow:
+    developerWorkflow:
+      enabled: true
+  env:
+    staging:
+      branch: main
+      codeReview: true
+      testSuite: true
+      services:
+        rid_1:
+          type: WEB_SERVICE
+          name: web_service
+          entryPoint: docker compose up
+          properties:
+            health: /health
+            port: 8080
+            loadBalancerMode: dedicated
+            variables:
+              BASE_URL: /api/v1
+              DATABASE_URL: 'mongodb+srv://souvikghosh_db_user:YASqttoPkb33F0Vj@revolte-node-cli.mxfk08f.mongodb.net/node-training?retryWrites=true&w=majority'
+              JWT_SECRET: 'your_jwt_secret_key_here_change_in_production'
+              PORT: '8080'
+              NODE_ENV: staging
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
+        rid_2:
+          type: DATABASE
+          name: db
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
+            engine: postgres
+    qa:
+      branch: main
+      codeReview: true
+      testSuite: true
+      services:
+        rid_1:
+          type: WEB_SERVICE
+          name: web_service
+          entryPoint: docker compose up
+          properties:
+            health: /health
+            port: 8080
+            loadBalancerMode: dedicated
+            variables:
+              BASE_URL: /api/v1
+              DATABASE_URL: 'mongodb+srv://souvikghosh_db_user:YASqttoPkb33F0Vj@revolte-node-cli.mxfk08f.mongodb.net/node-training?retryWrites=true&w=majority'
+              JWT_SECRET: 'your_jwt_secret_key_here_change_in_production'
+              PORT: '8080'
+              NODE_ENV: qa
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
+        rid_2:
+          type: DATABASE
+          name: db
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
+            engine: postgres
+    production:
+      branch: main
+      codeReview: true
+      testSuite: true
+      services:
+        rid_1:
+          type: WEB_SERVICE
+          name: web_service
+          entryPoint: docker compose up
+          properties:
+            health: /health
+            port: 8080
+            loadBalancerMode: dedicated
+            variables:
+              BASE_URL: /api/v1
+              DATABASE_URL: 'mongodb+srv://souvikghosh_db_user:YASqttoPkb33F0Vj@revolte-node-cli.mxfk08f.mongodb.net/node-training?retryWrites=true&w=majority'
+              JWT_SECRET: 'your_jwt_secret_key_here_change_in_production'
+              PORT: '8080'
+              NODE_ENV: production
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
+            autoScaling:
+              replica:
+                min: 1
+                max: 1
+              utilization:
+                cpu:
+                  target: 70
+                memory:
+                  target: 70
+              behavior:
+                scaleDown:
+                  stabilizationWindow: 300
+        rid_2:
+          type: DATABASE
+          name: db
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
+            engine: postgres
+    preview:
+      codeReview: true
+      testSuite: true
+      services:
+        rid_1:
+          type: WEB_SERVICE
+          name: web_service
+          entryPoint: docker compose up
+          properties:
+            health: /health
+            port: 8080
+            loadBalancerMode: dedicated
+            variables:
+              BASE_URL: /api/v1
+              DATABASE_URL: 'mongodb+srv://souvikghosh_db_user:YASqttoPkb33F0Vj@revolte-node-cli.mxfk08f.mongodb.net/node-training?retryWrites=true&w=majority'
+              JWT_SECRET: 'your_jwt_secret_key_here_change_in_production'
+              PORT: '8080'
+              NODE_ENV: preview
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
+        rid_2:
+          type: DATABASE
+          name: db
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
+            engine: postgres
