@@ -1,9 +1,10 @@
-import "reflect-metadata"
-import express from "express"
 import cors from "cors"
-import { AppDataSource } from "./config/database"
-import usersRoutes from "./routes/users.routes"
+import express from "express"
 import * as dotenv from "dotenv"
+
+import { connectDB } from "./config/database"
+import usersRoutes from "./routes/users.routes"
+import blogsRoutes from "./routes/blogs.routes"
 
 dotenv.config()
 
@@ -15,7 +16,7 @@ app.use(cors())
 app.use(express.json())
 
 // Initialize database
-AppDataSource.initialize()
+connectDB()
     .then(() => {
         console.log("✓ Database connected successfully")
     })
@@ -25,10 +26,11 @@ AppDataSource.initialize()
     })
 
 // Routes
-app.use("/api/v1", usersRoutes)
+app.use("/api/v1/users", usersRoutes)
+app.use("/api/v1/blogs", blogsRoutes)
 
 // Health check endpoint
-app.get("/health", (req, res) => {
+app.get("/api/v1/health", (req, res) => {
     res.status(200).json({ status: "OK", message: "Server is running" })
 })
 

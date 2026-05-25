@@ -1,11 +1,11 @@
 {
     "name": "cli-test",
     "version": "1.0.0",
-    "main": "index.js",
+    "main": "dist/index.js",
     "scripts": {
         "dev": "nodemon --exec ts-node src/index.ts",
         "build": "tsc",
-        "start": "node index.js",
+        "start": "node dist/index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
@@ -13,23 +13,21 @@
     "license": "ISC",
     "description": "",
     "dependencies": {
-        "bcryptjs": "^3.0.3",
-        "cors": "^2.8.6",
-        "dotenv": "^17.4.2",
-        "express": "^5.2.1",
-        "jsonwebtoken": "^9.0.3",
-        "mongodb": "^7.2.0",
-        "reflect-metadata": "^0.2.2",
-        "typeorm": "^1.0.0"
+        "bcryptjs": "3.0.3",
+        "cors": "2.8.6",
+        "dotenv": "17.4.2",
+        "express": "5.2.1",
+        "jsonwebtoken": "9.0.3",
+        "mongoose": "^8.24.0"
     },
     "devDependencies": {
-        "@types/bcryptjs": "^2.4.6",
-        "@types/cors": "^2.8.19",
-        "@types/express": "^5.0.6",
-        "@types/jsonwebtoken": "^9.0.10",
-        "@types/node": "^25.9.1",
-        "nodemon": "^3.1.14",
-        "ts-node": "^10.9.2",
-        "typescript": "^6.0.3"
+        "@types/bcryptjs": "2.4.6",
+        "@types/cors": "2.8.19",
+        "@types/express": "5.0.6",
+        "@types/jsonwebtoken": "9.0.10",
+        "@types/node": "25.9.1",
+        "nodemon": "3.1.14",
+        "ts-node": "10.9.2",
+        "typescript": "6.0.3"
     }
 }

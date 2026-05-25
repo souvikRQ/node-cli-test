@@ -1,10 +1,7 @@
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcryptjs';
-import { AppDataSource } from '../../config/database';
-import { User } from '../../entities/User';
+import { User } from '../../models/User';
 import { generateTokens, verifyRefreshToken } from '../../utils/token';
-
-const userRepository = AppDataSource.getMongoRepository(User);
 
 // Register a new user
 export const register = async (req: Request, res: Response) => {
@@ -17,7 +14,7 @@ export const register = async (req: Request, res: Response) => {
     }
 
     // Check if user already exists
-    const existingUser = await userRepository.findOne({ where: { email } });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
     }
@@ -26,13 +23,13 @@ export const register = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create new user
-    const newUser = userRepository.create({
+    const newUser = new User({
       email,
       name,
       password: hashedPassword,
     });
 
-    await userRepository.save(newUser);
+    await newUser.save();
 
     return res.status(201).json({
       message: 'User created successfully',
@@ -58,7 +55,7 @@ export const login = async (req: Request, res: Response) => {
     }
 
     // Find user by email
-    const user = await userRepository.findOne({ where: { email } });
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
