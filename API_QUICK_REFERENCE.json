@@ -1,0 +1,78 @@
+{
+  "register": {
+    "method": "POST",
+    "url": "http://localhost:3000/api/users/register",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "john.doe@example.com",
+      "name": "John Doe",
+      "password": "securePassword123"
+    }
+  },
+  "login": {
+    "method": "POST",
+    "url": "http://localhost:3000/api/users/login",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "john.doe@example.com",
+      "password": "securePassword123"
+    }
+  },
+  "getCurrentUser": {
+    "method": "GET",
+    "url": "http://localhost:3000/api/users/me",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer YOUR_JWT_TOKEN_HERE"
+    }
+  },
+  "getAllUsers": {
+    "method": "GET",
+    "url": "http://localhost:3000/api/users",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer YOUR_JWT_TOKEN_HERE"
+    }
+  },
+  "getUserById": {
+    "method": "GET",
+    "url": "http://localhost:3000/api/users/{userId}",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer YOUR_JWT_TOKEN_HERE"
+    },
+    "example_userId": "507f1f77bcf86cd799439011"
+  },
+  "updateUser": {
+    "method": "PUT",
+    "url": "http://localhost:3000/api/users/{userId}",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer YOUR_JWT_TOKEN_HERE"
+    },
+    "body": {
+      "name": "John Updated (optional)",
+      "email": "newemail@example.com (optional)",
+      "password": "newPassword123 (optional)"
+    },
+    "example_userId": "507f1f77bcf86cd799439011"
+  },
+  "deleteUser": {
+    "method": "DELETE",
+    "url": "http://localhost:3000/api/users/{userId}",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer YOUR_JWT_TOKEN_HERE"
+    },
+    "example_userId": "507f1f77bcf86cd799439011"
+  },
+  "health_check": {
+    "method": "GET",
+    "url": "http://localhost:3000/health",
+    "description": "Check if server is running"
+  }
+}

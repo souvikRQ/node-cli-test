@@ -1,0 +1,164 @@
+================================================================================
+                    NODE.JS EXPRESS + TYPEORM + MONGODB PROJECT
+================================================================================
+
+PROJECT STRUCTURE:
+==================
+
+src/
+├── config/
+│   └── database.ts              # MongoDB/TypeORM configuration
+├── controllers/
+│   ├── auth/
+│   │   └── auth.controller.ts   # Register & Login handlers
+│   ├── users/
+│   │   └── users.controller.ts  # CRUD & User retrieval handlers
+│   └── index.ts                 # Controller exports
+├── entities/
+│   └── User.ts                  # User model/schema
+├── middleware/
+│   └── auth.ts                  # JWT authentication middleware
+├── routes/
+│   └── users.routes.ts          # API route definitions
+├── utils/
+│   └── string.ts                # Utility functions (ensureString)
+└── index.ts                     # Application entry point
+
+KEY FEATURES:
+=============
+
+✓ User Registration (with bcrypt password hashing)
+✓ User Login (with JWT token generation)
+✓ JWT Authentication Middleware
+✓ CRUD Operations (Create, Read, Update, Delete)
+✓ MongoDB Integration via TypeORM
+✓ Password Hashing & Verification (bcryptjs)
+✓ Modular Controller Structure
+✓ Type-safe with TypeScript
+✓ Protected Routes (authentication required)
+✓ Error Handling
+
+TECHNOLOGY STACK:
+=================
+
+Runtime:        Node.js 18+
+Framework:      Express.js 5.2+
+Language:       TypeScript 6.0+
+Database:       MongoDB 7.2+
+ORM:            TypeORM 1.0+
+Authentication: JWT (jsonwebtoken 9.0+)
+Password Hash:  bcryptjs 3.0+
+Utilities:      dotenv, cors
+
+ENVIRONMENT VARIABLES:
+=======================
+
+DATABASE_URL   - MongoDB connection string
+JWT_SECRET     - Secret key for JWT signing
+PORT           - Server port (default: 3000)
+NODE_ENV       - Environment (development/production)
+
+See .env.example for template
+
+NPM SCRIPTS:
+=============
+
+npm run dev     - Start development server with hot reload (nodemon)
+npm run build   - Compile TypeScript to JavaScript
+npm start       - Run compiled application
+npm test        - Run tests (not configured yet)
+
+API ENDPOINTS:
+===============
+
+PUBLIC ENDPOINTS:
+- POST   /api/users/register     - Register new user
+- POST   /api/users/login        - Login & get JWT token
+
+PROTECTED ENDPOINTS (require JWT token in Authorization header):
+- GET    /api/users/me           - Get current authenticated user
+- GET    /api/users              - Get all users
+- GET    /api/users/:id          - Get specific user by ID
+- PUT    /api/users/:id          - Update user
+- DELETE /api/users/:id          - Delete user
+
+UTILITY ENDPOINTS:
+- GET    /health                 - Health check
+
+USER MODEL:
+============
+
+{
+  "_id":        ObjectId,    // Auto-generated MongoDB ID
+  "email":      string,      // Unique, required
+  "name":       string,      // Required
+  "password":   string,      // Hashed with bcrypt, required
+  "createdAt":  Date,        // Auto-generated
+  "updatedAt":  Date         // Auto-generated
+}
+
+QUICK START:
+=============
+
+1. Update .env with your MongoDB connection string
+2. Run: npm run dev
+3. Server starts on http://localhost:3000
+4. Check health: curl http://localhost:3000/health
+
+EXAMPLE REQUESTS:
+==================
+
+See API_QUICK_REFERENCE.json for complete endpoint documentation
+See API_CURL_EXAMPLES.sh for curl command examples
+See API_EXAMPLES.json for detailed request/response formats
+
+REGISTER A USER:
+{
+  "email": "user@example.com",
+  "name": "User Name",
+  "password": "securePassword123"
+}
+
+LOGIN:
+{
+  "email": "user@example.com",
+  "password": "securePassword123"
+}
+
+RESPONSE (with JWT token):
+{
+  "message": "Login successful",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "_id": "507f1f77bcf86cd799439011",
+    "email": "user@example.com",
+    "name": "User Name"
+  }
+}
+
+Use the token in Authorization header for protected routes:
+Authorization: Bearer <your_jwt_token>
+
+SECURITY FEATURES:
+====================
+
+✓ Passwords hashed with bcryptjs (salt rounds: 10)
+✓ JWT tokens with 24-hour expiration
+✓ Password verification on login
+✓ Email uniqueness constraint
+✓ Protected routes with middleware
+✓ Input validation
+✓ Secure password comparison
+
+PROJECT BUILT WITH:
+====================
+
+✓ Modular architecture (separate auth & user controllers)
+✓ Clean code structure
+✓ TypeScript strict mode
+✓ RESTful API design
+✓ Proper error handling
+✓ MongoDB ObjectId support
+✓ Environment-based configuration
+
+================================================================================
